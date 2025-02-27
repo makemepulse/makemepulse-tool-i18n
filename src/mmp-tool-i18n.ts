@@ -112,6 +112,12 @@ function formatFilename(filename: string, placeholders: FilenamePlaceholders) {
   );
 }
 
+function getParameterCaseInsensitive(object: Record<string, any>, key: string) {
+  const keyLC = key.toLowerCase();
+  const prop = Object.keys(object).find((k) => k.toLowerCase() === keyLC);
+  return prop !== undefined ? object[prop] : undefined;
+}
+
 /**
  * get xls Workbook
  * @param url
@@ -145,21 +151,21 @@ export function getWorkBookTH(records: I18nData[]): string[] {
 
 /**
  *
- * @param options
+ * @param records
  * @returns
  */
 export function getWorkbookLanguages(records: I18nData[]): string[] {
-  if (!_WORKBOOK) return [];
   if (_LOCALES) return _LOCALES;
 
-  _LOCALES = (records[0] && Object.keys(records[0])) || [];
-  _LOCALES = _LOCALES.filter((locale) => {
+  const headers = getWorkBookTH(records);
+  _LOCALES = headers.filter((header) => {
     let include = true;
+    const headerLC = header.toLowerCase();
     if (_OPTIONS.ignoreFields?.length) {
-      include = _OPTIONS.ignoreFields.every((field) => field.toLowerCase() !== locale.toLowerCase());
+      include = !_OPTIONS.ignoreFields.includes(headerLC);
     }
     if (include && _OPTIONS.onlyFields?.length) {
-      include = _OPTIONS.onlyFields.some((field) => field.toLowerCase() === locale.toLowerCase());
+      include = _OPTIONS.onlyFields.includes(headerLC);
     }
 
     return include;
@@ -201,8 +207,8 @@ export async function fetch(options: I18nFetchOptions): Promise<I18nData> {
   locales.forEach((locale) => {
     records.forEach((record: any) => {
       if (record[locale]) {
-        const key = record.key;
-        const category = record.category;
+        const key = getParameterCaseInsensitive(record, "key");
+        const category = getParameterCaseInsensitive(record, "category");
 
         if (!key) {
           return;

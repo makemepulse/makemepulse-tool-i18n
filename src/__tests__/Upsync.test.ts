@@ -12,11 +12,12 @@ const argv = parseArgs(process.argv.slice(2), {
 }) as ArgumentValues;
 
 const customIgnoreFields = process.env.I18N_IGNORE_FIELDS || argv['ignore-fields'];
-const ignoreFields = customIgnoreFields
+const ignoreFields = (customIgnoreFields
   ? customIgnoreFields.split(',').map((field) => field.trim())
-  : DEFAULT_IGNORE_FIELDS;
+  : DEFAULT_IGNORE_FIELDS
+).map((field) => field.toLowerCase());
 const customOnlyFields = process.env.I18N_ONLY_FIELDS || argv['only-fields'];
-const onlyFields = customOnlyFields?.split(',').map((field) => field.trim());
+const onlyFields = customOnlyFields?.split(',').map((field) => field.trim().toLowerCase());
 const options: I18nFetchOptions = {
   appId: (process.env.I18N_SPREADSHEET_ID || argv['spreadsheet-id'])!,
   tab: process.env.I18N_SPREADSHEET_TAB || argv['spreadsheet-tab'] || 'locales',
