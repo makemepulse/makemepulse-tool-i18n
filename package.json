@@ -18,15 +18,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://"
+    "url": "https://github.com/makemepulse/makemepulse-tool-i18n"
   },
   "keywords": [
-    "vue-i18n"
+    "vue",
+    "i18n"
   ],
   "author": "makemepulse",
   "license": "ISC",
   "bugs": {
-    "url": "git+https://"
+    "url": "https://github.com/makemepulse/makemepulse-tool-i18n/issues"
   },
   "homepage": "#readme",
   "devDependencies": {
