@@ -28,7 +28,7 @@ Handle localisation with a templated Google Spreadsheet
 ## Installation
 
 ```
-npm i git+ssh://git@github.com:makemepulse/makemepulse-tool-i18n.git
+npm install @makemepulse/tool-i18n --save-dev
 ```
 
 ## Options
