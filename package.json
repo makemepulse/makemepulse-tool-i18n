@@ -1,6 +1,6 @@
 {
   "name": "@makemepulse/tool-i18n",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Handle locales with Google Spreadsheet and vue-i18n plugin",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,15 +18,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://"
+    "url": "https://github.com/makemepulse/makemepulse-tool-i18n"
   },
   "keywords": [
-    "vue-i18n"
+    "vue",
+    "i18n"
   ],
   "author": "makemepulse",
   "license": "ISC",
   "bugs": {
-    "url": "git+https://"
+    "url": "https://github.com/makemepulse/makemepulse-tool-i18n/issues"
   },
   "homepage": "#readme",
   "devDependencies": {

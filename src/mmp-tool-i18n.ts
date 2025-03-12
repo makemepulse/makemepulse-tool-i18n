@@ -123,15 +123,16 @@ function getParameterCaseInsensitive(object: Record<string, any>, key: string) {
  * @param url
  * @returns
  */
-export async function getWorkBook(url: string): Promise<WorkBook> {
+export async function getWorkBook(url?: string): Promise<WorkBook> {
   if (_WORKBOOK) return _WORKBOOK;
 
   if (!fs.existsSync('./.tmp')) {
     mkdirp.sync('.tmp');
   }
 
-  const { appId: filename = 'locale' } = _OPTIONS;
-  const tmpFile = `./.tmp/${filename}.xlsx`;
+  const { appId } = _OPTIONS;
+  const tmpFile = `./.tmp/${appId}.xlsx`;
+  url = url ?? `https://docs.google.com/spreadsheets/d/${appId.startsWith("2PACX-") ? `e/${appId}` : appId}/pub?output=xlsx`;
 
   try {
     await downloadFile(url, tmpFile);
@@ -182,8 +183,7 @@ export async function fetch(options: I18nFetchOptions): Promise<I18nData> {
 
   console.log('[i18n] fetch', _OPTIONS);
 
-  const workbookURL = `https://docs.google.com/spreadsheets/d/${_OPTIONS.appId}/pub?output=xlsx`;
-  await getWorkBook(workbookURL);
+  await getWorkBook();
 
   let tabs = _OPTIONS.tab.split(',').map((tab) => tab.trim());
   var records: I18nData[] = [];
@@ -262,7 +262,7 @@ export async function upsync(options: I18nFetchOptions): Promise<Boolean> {
 
   console.log('[i18n] upsync', _OPTIONS);
 
-  await getWorkBook(`https://docs.google.com/spreadsheets/d/${_OPTIONS.appId}/pub?output=xlsx`);
+  await getWorkBook();
 
   var records: I18nData[] = XLSX.utils.sheet_to_json(_WORKBOOK.Sheets[_OPTIONS.tab], { raw: false, defval: '' });
   if (!records[0]) {
