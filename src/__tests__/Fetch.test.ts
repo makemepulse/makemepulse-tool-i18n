@@ -27,5 +27,6 @@ const options: I18nFetchOptions = {
 };
 
 test(`Fetch Google Spreadsheet ${options.appId}`, async () => {
-  await fetch(options).then(exportFiles);
+  const data = await fetch(options);
+  await exportFiles(data);
 });
