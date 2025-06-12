@@ -1,6 +1,6 @@
 {
   "name": "@makemepulse/tool-i18n",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Handle locales with Google Spreadsheet and vue-i18n plugin",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

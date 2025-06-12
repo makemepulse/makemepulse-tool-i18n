@@ -132,7 +132,9 @@ export async function getWorkBook(url?: string): Promise<WorkBook> {
 
   const { appId } = _OPTIONS;
   const tmpFile = `./.tmp/${appId}.xlsx`;
-  url = url ?? `https://docs.google.com/spreadsheets/d/${appId.startsWith("2PACX-") ? `e/${appId}` : appId}/pub?output=xlsx`;
+  url =
+    url ??
+    `https://docs.google.com/spreadsheets/d/${appId.startsWith('2PACX-') ? `e/${appId}` : appId}/pub?output=xlsx`;
 
   try {
     await downloadFile(url, tmpFile);
@@ -207,8 +209,8 @@ export async function fetch(options: I18nFetchOptions): Promise<I18nData> {
   locales.forEach((locale) => {
     records.forEach((record: any) => {
       if (record[locale]) {
-        const key = getParameterCaseInsensitive(record, "key");
-        const category = getParameterCaseInsensitive(record, "category");
+        const key = getParameterCaseInsensitive(record, 'key');
+        const category = getParameterCaseInsensitive(record, 'category');
 
         if (!key) {
           return;
@@ -231,7 +233,7 @@ export async function fetch(options: I18nFetchOptions): Promise<I18nData> {
  * @param locales
  * @param prettify Prettify output. Optionnal. Default to false
  */
-export async function exportFiles(locales: I18nData, options: Pick<ArgumentValues, "prettify" | "flatten"> = {}) {
+export async function exportFiles(locales: I18nData, options: Pick<ArgumentValues, 'prettify' | 'flatten'> = {}) {
   const _filename = _OPTIONS.filename || '[locale]';
   const { prettify = argv.prettify, flatten = argv.flatten } = options;
 
